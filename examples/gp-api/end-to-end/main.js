@@ -155,7 +155,7 @@ async function start3DS(token){
     } = GlobalPayments.ThreeDSecure;
 
     try {
-        versionCheckData = await checkVersion('http://localhost/php-sdk/examples/gp-api/end-to-end/check3dsVersion.php', {
+        versionCheckData = await checkVersion('http://localhost/gp-php-sdk/examples/gp-api/end-to-end/check3dsVersion.php', {
             tokenResponse:token
         });
 
@@ -168,7 +168,7 @@ async function start3DS(token){
         // 3DS2 Flow
         if (versionCheckData.messageVersion == 'TWO') {
             console.log("3ds2 flow")
-            authenticateData = await initiateAuthentication('http://localhost/php-sdk/examples/gp-api/end-to-end/initiateAuthentication.php', {
+            authenticateData = await initiateAuthentication('http://localhost/gp-php-sdk/examples/gp-api/end-to-end/initiateAuthentication.php', {
                 challengeWindow: {
                     windowSize: ChallengeWindowSize.Windowed600x400,
                     displayMode: 'lightbox',
@@ -186,7 +186,7 @@ async function start3DS(token){
             // frictionless authentication success and authorization success
             if (authenticateData.result == "SUCCESS_AUTHENTICATED" && authenticateData.liabilityShift == 'YES') {
                 var form = document.getElementById("payment-form");
-                form.setAttribute("action", "http://localhost/php-sdk/examples/gp-api/end-to-end/authorization.php");
+                form.setAttribute("action", "http://localhost/gp-php-sdk/examples/gp-api/end-to-end/authorization.php");
                 var formServerTransId = document.createElement("input");
                 formServerTransId.setAttribute("type", "hidden");
                 formServerTransId.setAttribute("name", "serverTransactionId");
@@ -236,7 +236,7 @@ async function start3DS(token){
                 var serverTransactionId = authenticateData.challenge.response.data.threeDSServerTransID;
                 console.log('Challenge:', serverTransactionId);
                 var form = document.getElementById("payment-form");
-                form.setAttribute("action", "http://localhost/php-sdk/examples/gp-api/end-to-end/authorization.php");
+                form.setAttribute("action", "http://localhost/gp-php-sdk/examples/gp-api/end-to-end/authorization.php");
 
                 var formServerTransId = document.createElement("input");
                 formServerTransId.setAttribute("type", "hidden");
